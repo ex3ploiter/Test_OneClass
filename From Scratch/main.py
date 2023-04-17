@@ -36,7 +36,7 @@ import torch.optim as optim
 from tqdm import tqdm
 import matplotlib.pyplot as plt
 
-from utils import write_in_file,sparse2coarse,getLoaders,auc_softmax_adversarial,auc_softmax
+from utils import write_in_file,getLoaders,auc_softmax_adversarial,auc_softmax
 from model import PreActResNet18
 from torchattacks import FGSM, PGD
 

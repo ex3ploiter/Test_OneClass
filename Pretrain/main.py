@@ -28,7 +28,7 @@ import cv2
 import numpy as np
 
 
-from utils import write_in_file,sparse2coarse,getLoaders,auc_softmax_adversarial,auc_softmax
+from utils import write_in_file,getLoaders,auc_softmax_adversarial,auc_softmax
 from model import PretrainedModel
 from torchattacks import FGSM, PGD
 
