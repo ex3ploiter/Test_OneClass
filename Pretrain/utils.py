@@ -7,6 +7,7 @@ from torchvision.datasets import ImageFolder
 import torch
 from torchvision.datasets import FashionMNIST
 from torchvision.datasets import CIFAR10
+from torchvision.datasets import MNIST
 from torchvision import transforms
 from torchvision.datasets import FashionMNIST
 from torchvision.models import resnet
@@ -16,6 +17,7 @@ import torchvision.transforms as transforms
 from torch.utils.data.dataset import Dataset 
 
 import numpy as np
+
 import time
 
 from torch.utils.data import DataLoader
@@ -201,11 +203,11 @@ def getLoaders(normal_class):
 
     
 
-    img_transform_32 = transforms.Compose([  transforms.ToTensor(),transforms.Resize((32,32))])
+    img_transform_32 = transforms.Compose([ transforms.Grayscale(num_output_channels=3), transforms.ToTensor(),transforms.Resize((32,32))])
 
     
 
-    FashionMNIST_train =FashionMNIST('./data', train=True, download=False, transform=img_transform_32)
+    FashionMNIST_train =MNIST('/mnt/new_drive/ExposureExperiment/data/Datasets/MNIST', train=True, download=False, transform=img_transform_32)
     images_train=[]
     
     for x,y in FashionMNIST_train:
@@ -215,7 +217,7 @@ def getLoaders(normal_class):
 
 
 
-    FashionMNIST_testset =FashionMNIST('./data', train=False, download=False, transform=img_transform_32)
+    FashionMNIST_testset =MNIST('/mnt/new_drive/ExposureExperiment/data/Datasets/MNIST', train=False, download=False,transform=img_transform_32)
     
     test_labels=[]
     images_test=[]
@@ -234,7 +236,7 @@ def getLoaders(normal_class):
                 transforms.Resize([224,224]) 
             ])
 
-    imagenet_data=torch.from_numpy(np.load("./OE_imagenet_32x32.npy"))[:FashionMNIST_train_tensor.shape[0]]
+    imagenet_data=torch.from_numpy(np.load("/mnt/new_drive/Masoud_WorkDir/Test_OneClass/OE_imagenet_32x32.npy"))[:FashionMNIST_train_tensor.shape[0]]
 
     fake_label=[1]*imagenet_data.shape[0]
     fake_dataset2 =MyDataset_Binary(imagenet_data,fake_label,_transform_224 )

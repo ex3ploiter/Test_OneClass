@@ -135,17 +135,17 @@ def getLoaders(normal_class):
     trans_to_32 = transforms.Compose([transforms.Resize((32, 32))])
 
     img_transform_32 = transforms.Compose(
-        [transforms.ToTensor(), transforms.Resize((32, 32))])
+        [transforms.Grayscale(num_output_channels=3) , transforms.ToTensor(), transforms.Resize((32, 32))])
 
-    mnist_train = MNIST('./data',train=True, download=False, transform=img_transform_32)
+    mnist_train = MNIST('/mnt/new_drive/ExposureExperiment/data/Datasets/MNIST',train=True, download=False, transform=img_transform_32)
     images_train = []
     for x, y in mnist_train:
         if y == normal_class:
             images_train.append(x)
     mnist_train_tensor = torch.stack(images_train)
 
-    mnist_testset = mnist(
-        './data', train=False, download=False, transform=img_transform_32)
+    mnist_testset = MNIST(
+        '/mnt/new_drive/ExposureExperiment/data/Datasets/MNIST', train=False, download=False, transform=img_transform_32)
     test_labels = []
     images_test = []
     for x, y in mnist_testset:
@@ -169,7 +169,7 @@ def getLoaders(normal_class):
     ])
 
     imagenet_data = torch.from_numpy(
-        np.load("./OE_imagenet_32x32.npy"))[:mnist_train_tensor.shape[0]]
+        np.load("/mnt/new_drive/Masoud_WorkDir/Test_OneClass/OE_imagenet_32x32.npy"))[:mnist_train_tensor.shape[0]]
 
     fake_label = [1]*imagenet_data.shape[0]
     fake_dataset2 = MyDataset_Binary(imagenet_data, fake_label, _transform_32)
