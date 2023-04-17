@@ -19,6 +19,15 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 
+
+_mean = (0.485, 0.456, 0.406)
+_std = (0.229, 0.224, 0.225)
+
+mu = torch.tensor(_mean).view(3,1,1).cuda()
+std = torch.tensor(_std).view(3,1,1).cuda()
+
+
+
 class FeatureExtractor(nn.Module):
   def __init__(self, in_channels=1):
     super(FeatureExtractor, self).__init__()
